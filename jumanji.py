@@ -1,6 +1,15 @@
+from random import randint as rand
+from time import sleep
+import board
+import busio
+
 #Import and setup the Servo Hat stuff
 from adafruit_servokit import ServoKit
 kit = ServoKit(channels=16)
+
+import adafruit_pca9685 as adafruit
+i2c = busio.I2C(board.SCL, board.SDA)
+hat = adafruit.PCA9685(i2c)
 
 #Players
 
@@ -109,7 +118,7 @@ def start_game(dicemax,steps,players):
 			if players[turn]['score'] >= steps: #winner
 				print ("Player", turn+1, "wins!")
 				break
-				
+
 		else:
 			players[turn]['skip'] = False
 
