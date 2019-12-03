@@ -203,12 +203,9 @@ def start_game(dicemax,steps,players):
 			players[turn]['score'] += roll
 
 			#Moving the piece
-			kit.servo[players[turn]['motor']].angle = [kit.servo[players[turn]['motorspeed']] #start the engine to move the piece
-			print(kit.servo[players[turn]['enginetime']])
-			print(kit.servo[players[turn]['enginetime']]*roll)
-			sleeptime = kit.servo[players[turn]['enginetime']]*roll #amount of time needed to move the piece X number of spaces
-			sleep(sleeptime)
-			kit.servo[players[turn]['motor']].angle = [kit.servo[players[turn]['motorspeed']] #stop moving
+			kit.servo[players[turn]['motor']].angle = players[turn]['motorspeed'] #start the engine to move the piece
+			sleep(players[turn]['enginetime']*roll)
+			kit.servo[players[turn]['motor']].angle = players[turn]['motorspeed'] #stop moving
 
 			#Trigger actions on the step they're on
 			if players[turn]['score'] == 6: #dead
