@@ -1,3 +1,19 @@
+#!/usr/bin/env python3
+
+#[x] Setup players
+#[x] Servo motor movement
+#[x] Players can move backwards
+#[x] Setup scenarios and triggers
+#[x] Setup dice rolling
+#[x] Connect to Servo Hat
+#[ ] Figure out pins on the Servo Hat for getting input signal
+#[ ] LED light-up
+#[ ] Receive button signal input
+#[ ] Trigger confetti
+#[ ] Play animal noises
+#[ ] Run on startup
+#[ ] Calibrate the servo motors for each player: motorstop, motorspeed, backwardspeed, enginetime
+
 from random import randint as rand
 from time import sleep
 import board
@@ -11,16 +27,16 @@ import adafruit_pca9685 as adafruit
 i2c = busio.I2C(board.SCL, board.SDA)
 hat = adafruit.PCA9685(i2c)
 
-#Players
-
-#kit.servo[0].angle=85 magic number to stop the thing from rotating.
-
+#########
+#PLAYERS#
+#########
 player1 = {
 	'score':0,
 	'skip':False,
 	'motor':0,
 	'motorstop':88,
 	'motorspeed' : 90,
+	'backwardspeed' : 86,
 	'enginetime': 2
 	}
 player2 = {
@@ -29,6 +45,7 @@ player2 = {
 	'motor':1,
 	'motorstop':86,
 	'motorspeed' : 90,
+	'backwardspeed' : 86,
 	'enginetime': 2
 	}
 player3 = {
@@ -37,6 +54,7 @@ player3 = {
 	'motor':2,
 	'motorstop':88,
 	'motorspeed' : 90,
+	'backwardspeed' : 86,
 	'enginetime': 2
 	}
 player4 = {
@@ -45,6 +63,7 @@ player4 = {
 	'motor':3,
 	'motorstop':87,
 	'motorspeed' : 90,
+	'backwardspeed' : 86,
 	'enginetime': 2
 	}
 
@@ -212,17 +231,27 @@ def start_game(dicemax,steps,players):
 			
 			players[turn]['score'] += roll
 
-			#Moving the piece
+			#############
+			#SERVO MOTOR#
+			#############
 			kit.servo[players[turn]['motor']].angle = players[turn]['motorspeed'] #start the engine to move the piece
 			sleep(players[turn]['enginetime']*roll)
 			kit.servo[players[turn]['motor']].angle = players[turn]['motorspeed'] #stop moving
 
-			#Trigger actions on the step they're on
+
+
+			##########
+			#TRIGGERS#
+			##########
 			if players[turn]['score'] == 6: #dead
 				step6()
 				break
 			if players[turn]['score'] == 5: #move backwards 
-				players[turn]['score'] = players[turn]['score'] - step5()
+				backwardsteps = step5()
+				players[turn]['score'] = players[turn]['score'] - backwardsteps
+				kit.servo[players[turn]['motor']].angle = players[turn]['backwardspeed'] #start the engine to move the piece
+				sleep(players[turn]['enginetime']*backwardsteps)
+				kit.servo[players[turn]['motor']].angle = players[turn]['motorspeed'] #stop moving
 			
 			if players[turn]['score'] == 4: #skip a turn
 				players[turn]['skip'] = True
