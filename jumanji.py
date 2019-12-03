@@ -204,6 +204,8 @@ def start_game(dicemax,steps,players):
 
 			#Moving the piece
 			kit.servo[players[turn]['motor']].angle = [kit.servo[players[turn]['motorspeed']] #start the engine to move the piece
+			print(kit.servo[players[turn]['enginetime']])
+			print(kit.servo[players[turn]['enginetime']]*roll)
 			sleeptime = kit.servo[players[turn]['enginetime']]*roll #amount of time needed to move the piece X number of spaces
 			sleep(sleeptime)
 			kit.servo[players[turn]['motor']].angle = [kit.servo[players[turn]['motorspeed']] #stop moving
