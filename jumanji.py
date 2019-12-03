@@ -40,52 +40,51 @@ def diceroll(dicemax): #roll the dice
 	return rand(1,dicemax)
 
 def welcome(): #players the welcome message
-	print '''
+	print ('''
 	print(chr(27) + "[2J")
 		-----------------
 		| J U M A N J I |
 		-----------------
 
 		Board game something something.
-
-	'''
+	''')
 
 #STEPS
 def step1():
 	print(chr(27) + "[2J")
-	print "You stumble upon a hostile wolfpack while beginning your journey. Prove that you are one of them by howling as loud as you can."
+	print ("You stumble upon a hostile wolfpack while beginning your journey. Prove that you are one of them by howling as loud as you can.")
 
 def step2():
 	print(chr(27) + "[2J")
-	print "You need to cross a river to continue your journey. Hold your breath for 10 seconds and pretend like you're swimming!"
+	print ("You need to cross a river to continue your journey. Hold your breath for 10 seconds and pretend like you're swimming!")
 
 def step3():
 	print(chr(27) + "[2J")
-	print "Monkeys are coming to try to steal your food! Slam the table really hard to scare them away."
+	print ("Monkeys are coming to try to steal your food! Slam the table really hard to scare them away.")
 
 def step5():
 	print(chr(27) + "[2J")
 	backwards = 6 - rand(1,5) #number of steps you need to take backwards
-	print "You were chased by a buffalo. Move back", backwards, "steps."
+	print ("You were chased by a buffalo. Move back", backwards, "steps.")
 	return backwards
 
 def step6(): 
 	print(chr(27) + "[2J")
-	print "You wandered into the wrong part of the forest and were hunted down by an indigenous tribe, who scalped your head and left your bare-skulled body for the nearby anacondas. You die slowly. The other player wins."
+	print ("You wandered into the wrong part of the forest and were hunted down by an indigenous tribe, who scalped your head and left your bare-skulled body for the nearby anacondas. You die slowly. The other player wins.")
 
 def start_game(dicemax,steps,players):
 	turn = 0
 	while True:
 		if players[turn]['skip'] == False:
-			print ""
-			print "Player", turn+1
+			print ("")
+			print ("Player", turn+1)
 			raw_input("Press ENTER to roll the dice.")
 			roll = diceroll(dicemax)
-			print "Player", turn+1, "rolls a", roll
+			print ("Player", turn+1, "rolls a", roll)
 			
 			players[turn]['score'] += roll
 			
-			print "Player score", players[turn]['score']
+			print ("Player score", players[turn]['score'])
 
 			#Trigger actions on the step they're on
 			if players[turn]['score'] == 6: #dead
@@ -96,11 +95,7 @@ def start_game(dicemax,steps,players):
 			
 			if players[turn]['score'] == 4: #skip a turn
 				players[turn]['skip'] = True
-				print "Sorry, you're stuck in quicksand!"
-
-			if players[turn]['score'] >= steps: #winner
-				print "Player", turn+1, "wins!"
-				break
+				print ("Sorry, you're stuck in quicksand!")
 
 			if players[turn]['score'] == 1:
 				step1()
@@ -110,6 +105,11 @@ def start_game(dicemax,steps,players):
 
 			if players[turn]['score'] == 3:
 				step3()
+
+			if players[turn]['score'] >= steps: #winner
+				print ("Player", turn+1, "wins!")
+				break
+				
 		else:
 			players[turn]['skip'] = False
 
