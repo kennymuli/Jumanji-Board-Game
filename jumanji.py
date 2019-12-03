@@ -6,7 +6,7 @@
 #[x] Setup scenarios and triggers
 #[x] Setup dice rolling
 #[x] Connect to Servo Hat
-#[ ] Figure out pins on the Servo Hat for getting input signal
+#[x] Figure out pins on the Servo Hat for getting input signal
 #[ ] LED light-up
 #[ ] Receive button signal input
 #[ ] Trigger confetti
@@ -26,6 +26,13 @@ kit = ServoKit(channels=16)
 import adafruit_pca9685 as adafruit
 i2c = busio.I2C(board.SCL, board.SDA)
 hat = adafruit.PCA9685(i2c)
+
+#Import and setup GPIO
+import RPi.GPIO as GPIO
+button_gpio = 2
+GPIO.setmode(GPIO.BOARD)
+GPIO.setup(button_gpio,gpio.IN, pull_up_down=gpio.PUD_DOWN) 
+button = gpio.input(button_gpio)
 
 #########
 #PLAYERS#
@@ -276,6 +283,10 @@ def start_game(dicemax,steps,players):
 		if turn == 0:
 			turn = 1
 		elif turn == 1:
+			turn = 2
+		elif turn == 2:
+			turn = 3
+		elif turn == 3:
 			turn = 0
 
 
