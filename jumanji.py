@@ -87,7 +87,7 @@ def start_game(dicemax,steps,players):
 		if players[turn]['skip'] == False:
 			print ("")
 			print ("Player", turn+1)
-			raw_input("Press ENTER to roll the dice.")
+			input("Press ENTER to roll the dice.")
 			roll = diceroll(dicemax)
 			print ("Player", turn+1, "rolls a", roll)
 			
