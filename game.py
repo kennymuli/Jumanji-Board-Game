@@ -29,7 +29,7 @@ kit = ServoKit(channels=16)
 player1 = {
 	'score':0,
 	'skip':False,
-	'enginetime': 6.3
+	'enginetime': 6
 	}
 
 players = [player1]
