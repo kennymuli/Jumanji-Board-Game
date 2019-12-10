@@ -206,7 +206,7 @@ def start_game(dicemax,steps,players,player1):
 		input("Press ENTER to roll the dice.")
 		roll = diceroll(dicemax)
 		print ("You've rolled a", roll)
-		print player1
+		print(player1)
 		player1['score'] += roll
 
 		#############
