@@ -29,7 +29,6 @@ kit = ServoKit(channels=16)
 player1 = {
 	'score':0,
 	'skip':False,
-	'backwardspeed' : ,
 	'enginetime': 4.9
 	}
 
@@ -213,9 +212,9 @@ def start_game(dicemax,steps,players,player1,kit):
 		if players[turn]['score'] == 5: #move backwards 
 			backwardsteps = step5()
 			players[turn]['score'] = players[turn]['score'] - backwardsteps
-			kit.servo[players[turn]['motor']].angle = players[turn]['backwardspeed'] #start the engine to move the piece
-			sleep(players[turn]['enginetime']*backwardsteps)
-			kit.servo[players[turn]['motor']].angle = players[turn]['motorspeed'] #stop moving
+			kit.servo[0].angle = 84 #start the engine to move the piece
+			sleep(player1['enginetime']*backwardsteps)
+			kit.servo[0].angle = 86 #stop moving
 		
 		if players[turn]['score'] == 4: #skip a turn
 			players[turn]['skip'] = True
