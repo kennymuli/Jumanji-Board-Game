@@ -23,17 +23,6 @@ import busio
 from adafruit_servokit import ServoKit
 kit = ServoKit(channels=16)
 
-import adafruit_pca9685 as adafruit
-i2c = busio.I2C(board.SCL, board.SDA)
-hat = adafruit.PCA9685(i2c)
-
-#Import and setup GPIO
-#import RPi.GPIO as GPIO
-#button_gpio = 2
-#GPIO.setmode(GPIO.BOARD)
-#GPIO.setup(button_gpio,gpio.IN, pull_up_down=gpio.PUD_DOWN) 
-#button = gpio.input(button_gpio)
-
 #########
 #PLAYERS#
 #########
@@ -212,9 +201,9 @@ def start_game(dicemax,steps,players,player1,kit):
 		#############
 		#SERVO MOTOR#
 		#############
-		kit.servo[player1['motor']].angle = player1['motorspeed']
+		kit.servo[0].angle = 88
 		sleep(player1['enginetime']*roll)
-		kit.servo[player1['motor']].angle = player1['motorstop'] #stop moving
+		kit.servo[0].angle = 86 #stop moving
 
 
 
