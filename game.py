@@ -34,7 +34,7 @@ player1 = {
 
 players = [player1]
 dicemax = 2 #maximum dice roll
-steps = 5 #number of board positions
+steps = 3 #number of board positions
 
 #Diceroll Function
 def diceroll(dicemax): #roll the dice
@@ -158,12 +158,6 @@ def step1():
 	input()
 	print(chr(27) + "[2J")
 
-def step3():
-	print(chr(27) + "[2J")
-	print ("Monkeys are coming to try to steal your food! Slam the table really hard to scare them away.")
-	input()
-	print(chr(27) + "[2J")
-
 def backwards():
 	print(chr(27) + "[2J")
 	backwards = 6 - rand(1,5) #number of steps you need to take backwards
@@ -194,13 +188,6 @@ def start_game(dicemax,steps,players,player1,kit):
 		##########
 		#TRIGGERS#
 		##########		
-		if players[turn]['score'] == 4: #wins
-			backwardsteps = backwards()
-			players[turn]['score'] = players[turn]['score'] - backwardsteps
-			kit.servo[0].angle = 84 #start the engine to move the piece
-			sleep(player1['enginetime']*backwardsteps)
-			kit.servo[0].angle = 86 #stop moving
-
 		if players[turn]['score'] == 1:
 			step1()
 
@@ -210,9 +197,6 @@ def start_game(dicemax,steps,players,player1,kit):
 			kit.servo[0].angle = 84 #start the engine to move the piece
 			sleep(player1['enginetime']*backwardsteps)
 			kit.servo[0].angle = 86 #stop moving
-
-		if players[turn]['score'] == 3:
-			step3()
 
 		if players[turn]['score'] >= steps: #winner
 			print ("Player", turn+1, "wins!")
