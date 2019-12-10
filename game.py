@@ -199,14 +199,14 @@ def step6():
 	input()
 	print(chr(27) + "[2J")
 
-def start_game(dicemax,steps,players):
+def start_game(dicemax,steps,players,player1):
 	turn = 0
 	while True:
 		print ("")
 		input("Press ENTER to roll the dice.")
 		roll = diceroll(dicemax)
 		print ("You've rolled a", roll)
-		
+		print player1
 		player1['score'] += roll
 
 		#############
@@ -252,6 +252,6 @@ def start_game(dicemax,steps,players):
 def game_start(): #start the game
 	welcome()
 	sleep(1)
-	start_game(dicemax,steps,players)
+	start_game(dicemax,steps,players,player1)
 
 game_start()
