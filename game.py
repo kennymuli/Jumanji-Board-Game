@@ -41,10 +41,10 @@ player1 = {
 	'score':0,
 	'skip':False,
 	'motor':0,
-	'motorstop':88,
-	'motorspeed' : 90,
-	'backwardspeed' : 86,
-	'enginetime': 2
+	'motorstop':86,
+	'motorspeed' : 88,
+	'backwardspeed' : 84,
+	'enginetime': 1
 	}
 
 players = [player1]
@@ -214,9 +214,9 @@ def start_game(dicemax,steps,players):
 			#############
 			#SERVO MOTOR#
 			#############
-			kit.servo[players[turn]['motor']].angle = players[turn]['motorspeed'] #start the engine to move the piece
-			sleep(players[turn]['enginetime']*roll)
-			kit.servo[players[turn]['motor']].angle = players[turn]['motorspeed'] #stop moving
+			kit.servo[player1['motor']].angle = player1['motorspeed']
+			sleep(player1['enginetime']*roll)
+			kit.servo[player1['motor']].angle = player1['motorstop'] #stop moving
 
 
 
