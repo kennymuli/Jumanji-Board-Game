@@ -202,56 +202,51 @@ def step6():
 def start_game(dicemax,steps,players):
 	turn = 0
 	while True:
-		if players[turn]['skip'] == False:
-			print ("")
-			print ("Player", turn+1)
-			input("Press ENTER to roll the dice.")
-			roll = diceroll(dicemax)
-			print ("Player", turn+1, "rolls a", roll)
-			
-			players[turn]['score'] += roll
+		print ("")
+		input("Press ENTER to roll the dice.")
+		roll = diceroll(dicemax)
+		print ("You've rolled a", roll)
+		
+		player1['score'] += roll
 
-			#############
-			#SERVO MOTOR#
-			#############
-			kit.servo[player1['motor']].angle = player1['motorspeed']
-			sleep(player1['enginetime']*roll)
-			kit.servo[player1['motor']].angle = player1['motorstop'] #stop moving
+		#############
+		#SERVO MOTOR#
+		#############
+		kit.servo[player1['motor']].angle = player1['motorspeed']
+		sleep(player1['enginetime']*roll)
+		kit.servo[player1['motor']].angle = player1['motorstop'] #stop moving
 
 
 
-			##########
-			#TRIGGERS#
-			##########
-			if players[turn]['score'] == 6: #dead
-				step6()
-				break
-			if players[turn]['score'] == 5: #move backwards 
-				backwardsteps = step5()
-				players[turn]['score'] = players[turn]['score'] - backwardsteps
-				kit.servo[players[turn]['motor']].angle = players[turn]['backwardspeed'] #start the engine to move the piece
-				sleep(players[turn]['enginetime']*backwardsteps)
-				kit.servo[players[turn]['motor']].angle = players[turn]['motorspeed'] #stop moving
-			
-			if players[turn]['score'] == 4: #skip a turn
-				players[turn]['skip'] = True
-				print ("Sorry, you're stuck in quicksand!")
+		##########
+		#TRIGGERS#
+		##########
+		if players[turn]['score'] == 6: #dead
+			step6()
+			break
+		if players[turn]['score'] == 5: #move backwards 
+			backwardsteps = step5()
+			players[turn]['score'] = players[turn]['score'] - backwardsteps
+			kit.servo[players[turn]['motor']].angle = players[turn]['backwardspeed'] #start the engine to move the piece
+			sleep(players[turn]['enginetime']*backwardsteps)
+			kit.servo[players[turn]['motor']].angle = players[turn]['motorspeed'] #stop moving
+		
+		if players[turn]['score'] == 4: #skip a turn
+			players[turn]['skip'] = True
+			print ("Sorry, you're stuck in quicksand!")
 
-			if players[turn]['score'] == 1:
-				step1()
+		if players[turn]['score'] == 1:
+			step1()
 
-			if players[turn]['score'] == 2:
-				step2()
+		if players[turn]['score'] == 2:
+			step2()
 
-			if players[turn]['score'] == 3:
-				step3()
+		if players[turn]['score'] == 3:
+			step3()
 
-			if players[turn]['score'] >= steps: #winner
-				print ("Player", turn+1, "wins!")
-				break
-
-		else:
-			players[turn]['skip'] = False
+		if players[turn]['score'] >= steps: #winner
+			print ("Player", turn+1, "wins!")
+			break
 
 
 def game_start(): #start the game
