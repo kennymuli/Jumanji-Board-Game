@@ -199,7 +199,7 @@ def step6():
 	input()
 	print(chr(27) + "[2J")
 
-def start_game(dicemax,steps,players,player1):
+def start_game(dicemax,steps,players,player1,kit):
 	turn = 0
 	while True:
 		print ("")
@@ -252,6 +252,6 @@ def start_game(dicemax,steps,players,player1):
 def game_start(): #start the game
 	welcome()
 	sleep(1)
-	start_game(dicemax,steps,players,player1)
+	start_game(dicemax,steps,players,player1,kit)
 
 game_start()
